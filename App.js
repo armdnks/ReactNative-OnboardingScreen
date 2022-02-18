@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import AppLoading from 'expo-app-loading';
+
+import OnboardingScreen from './source/screens/OnboardingScreen';
+
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins';
+import { Bangers_400Regular } from '@expo-google-fonts/bangers';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  let [fontsLoaded] = useFonts({
+    POPPINS400: Poppins_400Regular,
+    POPPINS500: Poppins_500Medium,
+    POPPINS600: Poppins_600SemiBold,
+    POPPINS700: Poppins_700Bold,
+    BANGERS400: Bangers_400Regular,
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  return <OnboardingScreen />;
+}
